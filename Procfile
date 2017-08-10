@@ -1,1 +1,1 @@
-web: gunicorn chacha.wsgi --log-file -
+web: gunicorn crawler.wsgi --log-file -
