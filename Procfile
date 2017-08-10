@@ -1,1 +1,1 @@
-web: cd crawler; gunicorn crawler.crawler.wsgi --log-file -
+web: cd crawler; gunicorn crawler.wsgi --log-file -
