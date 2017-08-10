@@ -7,7 +7,7 @@ Deployed at https://pdfcrawler.herokuapp.com/
 ### Usage:
 
 * Upload file to https://pdfcrawler.herokuapp.com/upload
-The file's key should be `file` (see assumptions) and the POST request should carry the file as form-data
+  The file's key should be `file` (see assumptions.txt) and the POST request should carry the file as form-data
 
 * List all uploaded documents with https://pdfcrawler.herokuapp.com/all
 
