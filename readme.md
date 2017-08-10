@@ -1,6 +1,6 @@
 # PDFCrawler #
 
-_Written by Yoav Porat for Comeet
+_Written by Yoav Porat for Comeet_
 
 Deployed at pdfcrawler.herokuapp.com/
 
@@ -9,7 +9,7 @@ Usage:
 1. Upload file to pdfcrawler.herokuapp.com/upload
 The file's key should be 'file' (see assumptions) and the POST request should carry the file as form-data
 
-2. List all uploaded documents with pdfcrawler.herokuapp.com/all
+2. List all uploaded documents with pdfcrawler.herokuapp.com/all [([Try it](pdfcrawler.herokuapp.com/all))]
 
 3. List all URLs in a specific document with pdfcrawler.herokuapp.com/doc/<doc_name>
 Replace the desired document's name with <doc_name>
