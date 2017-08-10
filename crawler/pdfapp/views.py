@@ -1,10 +1,8 @@
-from __future__ import unicode_literals
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 
 import PyPDF2
-import json
 
 from models import Doc, Urls
 import engine
@@ -12,6 +10,15 @@ import engine
 
 @csrf_exempt
 def upload(request):
+    """
+    handles file upload POST requests
+    upload limit is a single file per request
+    uploading a document with non-unique name will override the existing one
+    @csrf_exempt is used for testing
+
+    :param request: HTTP request
+    :returns: HTTP request 200 for successful upload or 400 for bad requests
+    """
     if request.method == 'POST' and len(request.FILES) == 1:
         # valid file upload request - create Doc object
         doc_obj, created = Doc.objects.get_or_create(doc_name=request.FILES['file'].name)
@@ -32,7 +39,10 @@ def upload(request):
             urls |= engine.extract_urls_from_text(text)
 
         for u in urls:
-            url_obj, created = Urls.objects.get_or_create(url=u)
+            url_obj, created = Urls.objects.get_or_create(
+                url=u,
+                alive=engine.is_url_alive(u)
+            )
             url_obj.doc.add(doc_obj)
 
         return HttpResponse(status=200)
@@ -41,6 +51,12 @@ def upload(request):
 
 
 def all_docs(request):
+    """
+    handles GET request to retrieve info about all existing documents
+    :param request: HTTP request
+    :return: JSON array of elements containing {doc_name, doc_id, url_count}
+    """
+
     # fetch all Doc objects
     all = Doc.objects.all()
     data = []
@@ -58,6 +74,13 @@ def all_docs(request):
 
 
 def doc(request, filename):
+    """
+    handles GET request to retrieve all URLs that appears in a specific document
+    :param request: HTTP request
+    :param filename: document name
+    :return: JSON array of URLs
+    """
+
     # fetch requested Doc object
     doc_obj = get_object_or_404(Doc, doc_name=filename)
 
@@ -68,6 +91,12 @@ def doc(request, filename):
 
 
 def urls(request):
+    """
+    handles GET request to retrieve document count for all existing URLs
+    :param request: HTTP request
+    :return: JSON array of elements containing {url, doc_count}
+    """
+
     # fetch all URL objects
     all = Urls.objects.all()
     data = []
@@ -76,7 +105,8 @@ def urls(request):
         # assemble data per URL object
         url_data = {
             'url': url_obj.url,
-            'count': url_obj.doc.count()
+            'count': url_obj.doc.count(),
+            'alive': url_obj.alive
         }
         data.append(url_data)
 

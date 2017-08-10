@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.db import models
 
 
@@ -14,6 +11,7 @@ class Doc(models.Model):
 class Urls(models.Model):
     url = models.URLField()
     doc = models.ManyToManyField(Doc)
+    alive = models.BooleanField()
 
     def __str__(self):
         return self.url
