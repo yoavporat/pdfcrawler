@@ -4,8 +4,8 @@ from django.shortcuts import get_object_or_404
 
 import PyPDF2
 
-from models import Doc, Urls
-import engine
+from pdfapp.models import Doc, Urls
+import pdfapp.engine as engine
 
 
 @csrf_exempt
