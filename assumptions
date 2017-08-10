@@ -1,0 +1,7 @@
+1. Upload limit of one file per request.
+2. PDF filename is shorter than 50 characters.
+3. The file key in the request header is 'file'
+4. Each PDF filename is unique, since they are identified by their names.
+5. URLs must start with an http:\\ or https:\\
+6. Requesting URL info for a specific document should include the document's name.
+    i.e. requesting /doc/test.pdf will send info for the test.pdf document.
