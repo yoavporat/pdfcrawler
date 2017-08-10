@@ -25,5 +25,5 @@ Deployed at https://pdfcrawler.herokuapp.com/
 ### Notes
 
 * I've used an SQLite DB for simplicity and left the test data I used inside.  
-* Admin site is on, user is admin and password is zubur123, though since I don't serve static files (no UI is required) it looks bad, but still functional.  
+* Admin site is on, user is `admin` and password is `zubur123`, though since I don't serve static files (no UI is required) it looks bad, but still functional.  
 * The work with the PDF files is done by the PyPDF2 package.  
